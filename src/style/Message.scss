@@ -1,0 +1,54 @@
+.container {
+    max-width: 1160px;
+    padding: 0 10px;
+    margin: 0 auto;
+  }
+  
+
+.message {
+    height: 100vh;
+    width: 100vw;
+    background-color: cadetblue;
+    background-color: rgb(46, 53, 53);
+    &__content {
+
+    }
+
+    &__title {
+        padding-top: 60px;
+        text-align: center;
+        color: wheat;
+    }
+
+    &__text {
+        text-align: center;
+        color: teal;
+        font-size: 24px;
+        margin-top: 40px;
+    }
+
+    &__count {
+        font-size: 40px;
+        margin-top: 60px;
+        text-align: center;
+        color: tomato;
+    }
+
+    &__button {
+        display: block;
+        width: 150px;
+        background-color:teal;
+        font-size: 24px;
+        margin: 40px auto;
+        border-radius: 5px;
+        padding: 10px;
+        transition: 0.3s;
+    }
+
+    &__button:hover {
+        transition: 0.3s;
+        transform: scale(1.02);
+        box-shadow: 1px 2px 10px rgba(63, 171, 179, 0.2);
+        cursor: pointer;
+    }
+  }
