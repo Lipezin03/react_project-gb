@@ -19,6 +19,7 @@ function App() {
       name: "Games",
       id: 2,
     },
+
     {
       name: "Animal",
       id: 3,
