@@ -1,33 +1,58 @@
-import React, { useEffect, useRef } from 'react';
-import "./FormMessage.scss"
+import React, { useEffect, useRef, useState } from 'react';
+import { AUTHORS } from '../../utils/constans';
+import "./FormMessage.scss";
+import TextField from '@mui/material/TextField'
 
 
-export const FormMessage = ({ isMessageList, isSetMessageList }) => {
+export const FormMessage = ({ onSendMessage }) => {
 
     useEffect(() => {
-        textareaValue.current.focus()
+        setTimeout(() => {
+            textareaElement.current.focus()
+        }, 500);
+
     })
 
-    const textareaValue = useRef()
+    const [valueTextarea, setValueTextarea] = useState("")
+
+    const textareaElement = useRef()
+
+    const getValue = (event) => {
+        setValueTextarea(event.target.value)
+    }
 
     const addMessage = (event) => {
         event.preventDefault()
-        const message = {
-            autor: "User",
-            text: textareaValue.current.value
-        };
 
-        isSetMessageList([...isMessageList, message])
+        onSendMessage({
+            autor: AUTHORS.User,
+            text: valueTextarea,
+            id: Date.now()
+        })
 
-        textareaValue.current.value = ""
+        setValueTextarea("");
     }
 
 
     return (
-        <form onSubmit={addMessage} className="form-message">
-            <textarea ref={textareaValue} className="form-message__textarea" name="message"></textarea>
-            <button type="submit" className="form-message__button">Отправить сообщение</button>
-        </form>
 
+        <div className="block-form">
+            <form onSubmit={addMessage} className="form-message">
+                <TextField
+                    type="submit"
+                    id="filled-textarea"
+                    label="Отправить сообщение"
+                    placeholder="Сообщение"
+                    multiline
+                    fullWidth
+                    variant="filled"
+                    inputRef={textareaElement}
+                    value={valueTextarea}
+                    onChange={getValue}
+                />
+                <button type="submit" className="form-message__button">Отправить сообщение</button>
+            </form>
+        </div>
     )
 }
+
