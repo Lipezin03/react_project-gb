@@ -1,20 +1,48 @@
 .chat-list {
-    width: 25%;
-    margin-top: 110px;
-    height: 300px;
+    width: 100%;
+    height: 354px;
     overflow:auto;
-    // border: 1px solid black;
     padding: 10px;
-    align-self: flex-start;
+    
 
     &__title{
         color: tomato;
+        margin-bottom: 20px;
+    }
+
+    &__list {
+        margin-bottom: 10px;
+        list-style: none;
+        display: flex;
+        align-items: center;
     }
 
     &__text {
+        color: wheat;
+        color:teal;
+        font-size: 25px;
+        flex-grow: 1;
+        // line-height: 20px;
+    }
+
+     &__btn-del {
+        background-color: inherit;
+        cursor: pointer;
+        padding: 5px;
+        // margin-top: 3px;
+    }
+    &__icon-del {
+        background-color: rgb(46, 53, 53);
+        color: darkcyan;
+        padding: 0px;
+    }
+    &__not-chats {
         color: wheat;
     }
 }
 .chat-list::-webkit-scrollbar {
     display: none;
-  }
+}
+
+
+  

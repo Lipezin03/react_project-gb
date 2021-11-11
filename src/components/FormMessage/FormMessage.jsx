@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { AUTHORS } from '../../utils/constans';
 import "./FormMessage.scss";
 import TextField from '@mui/material/TextField'
@@ -6,12 +6,12 @@ import TextField from '@mui/material/TextField'
 
 export const FormMessage = ({ onSendMessage }) => {
 
-    useEffect(() => {
-        setTimeout(() => {
-            textareaElement.current.focus()
-        }, 500);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         textareaElement.current.focus()
+    //     }, 500);
 
-    })
+    // })
 
     const [valueTextarea, setValueTextarea] = useState("")
 
@@ -26,7 +26,7 @@ export const FormMessage = ({ onSendMessage }) => {
 
         onSendMessage({
             autor: AUTHORS.User,
-            text: valueTextarea,
+            message: valueTextarea,
             id: Date.now()
         })
 
@@ -38,6 +38,7 @@ export const FormMessage = ({ onSendMessage }) => {
 
         <div className="block-form">
             <form onSubmit={addMessage} className="form-message">
+
                 <TextField
                     type="submit"
                     id="filled-textarea"
@@ -48,8 +49,8 @@ export const FormMessage = ({ onSendMessage }) => {
                     variant="filled"
                     inputRef={textareaElement}
                     value={valueTextarea}
-                    onChange={getValue}
-                />
+                    onChange={getValue} />
+
                 <button type="submit" className="form-message__button">Отправить сообщение</button>
             </form>
         </div>
