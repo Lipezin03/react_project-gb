@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Message } from "../../components/Message/Message.jsx"
 import { ChatList } from "../../components/ChatList/ChatList.jsx"
 import { AddChatForm } from '../../components/AddChatForm/AddChatForm.jsx';
@@ -33,6 +33,8 @@ export const Chats = () => {
 
     const { name: chatUrlName } = useParams()
 
+    const navigate = useNavigate()
+
     const [messageList, setMessageList] = useState(initialChats);
 
     const [chatListEl, setChatListEl] = useState(Object.keys(messageList))
@@ -41,8 +43,13 @@ export const Chats = () => {
     const delChats = useCallback((chat) => {
         const newObjectChats = messageList;
         delete newObjectChats[chat]
+
         setMessageList(newObjectChats)
         setChatListEl(prevChatsName => prevChatsName.filter(el => el !== chat))
+
+        if (chatUrlName === chat) {
+            navigate("/chats")
+        }
     }, [messageList])
 
     const addChats = useCallback((newChat) => {
@@ -52,7 +59,6 @@ export const Chats = () => {
 
 
     const handleSendMessage = useCallback((newMessage) => {
-        console.log(chatUrlName)
         setMessageList(prevMessage => ({
             ...prevMessage, [chatUrlName]: [...prevMessage[chatUrlName], newMessage]
         }))

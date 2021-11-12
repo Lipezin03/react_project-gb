@@ -1,17 +1,23 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
+import { useRef, useState, useMemo } from 'react';
 import { AUTHORS } from '../../utils/constans';
 import "./FormMessage.scss";
 import TextField from '@mui/material/TextField'
+import { useParams } from 'react-router';
 
 
 export const FormMessage = ({ onSendMessage }) => {
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         textareaElement.current.focus()
-    //     }, 500);
+    const { name: chatUrlName } = useParams()
 
-    // })
+    const isActivUrl = useMemo(() => {
+        if (chatUrlName) {
+            return true;
+        } else {
+            return false;
+        }
+    }, [chatUrlName])
+
 
     const [valueTextarea, setValueTextarea] = useState("")
 
@@ -38,19 +44,21 @@ export const FormMessage = ({ onSendMessage }) => {
 
         <div className="block-form">
             <form onSubmit={addMessage} className="form-message">
+                {isActivUrl
+                    ?
+                    <TextField
+                        type="submit"
+                        id="filled-textarea"
+                        label="Отправить сообщение"
+                        placeholder="Сообщение"
+                        multiline
+                        fullWidth
+                        variant="filled"
+                        inputRef={textareaElement}
+                        value={valueTextarea}
+                        onChange={getValue} />
 
-                <TextField
-                    type="submit"
-                    id="filled-textarea"
-                    label="Отправить сообщение"
-                    placeholder="Сообщение"
-                    multiline
-                    fullWidth
-                    variant="filled"
-                    inputRef={textareaElement}
-                    value={valueTextarea}
-                    onChange={getValue} />
-
+                    : ""}
                 <button type="submit" className="form-message__button">Отправить сообщение</button>
             </form>
         </div>

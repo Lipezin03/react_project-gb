@@ -1,17 +1,10 @@
-import { textAlign } from "@mui/system";
 import React from "react";
+import "./Home.scss"
 
 export const Home = () => {
     return (
         <div>
-            <h1
-                style={
-                    {
-                        color: "brown",
-                        textAlign: "center",
-                        marginTop: "30px"
-                    }
-                }>Домашняя страница</h1>
+            <h1 className="home-page">Домашняя страница</h1>
         </div>
     )
 }
