@@ -39,6 +39,11 @@ export const Chats = () => {
 
     const [chatListEl, setChatListEl] = useState(Object.keys(messageList))
 
+    if (chatUrlName) {
+        if (!chatListEl.includes(chatUrlName)) {
+            navigate("/chats")
+        }
+    }
 
     const delChats = useCallback((chat) => {
         const newObjectChats = messageList;
@@ -50,7 +55,12 @@ export const Chats = () => {
         if (chatUrlName === chat) {
             navigate("/chats")
         }
+        else if (chatListEl.length === 0) {
+            navigate("/chats")
+        }
+
     }, [messageList])
+
 
     const addChats = useCallback((newChat) => {
         setMessageList(prevChat => ({ ...prevChat, ...newChat }))
@@ -95,6 +105,7 @@ export const Chats = () => {
                 </div>
 
                 <Message
+                    chatsName={chatListEl}
                     messageList={messageList[chatUrlName]}
                     onSendMessage={handleSendMessage} />
 

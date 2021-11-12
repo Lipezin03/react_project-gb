@@ -1,27 +1,32 @@
 import React from 'react';
-import { useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { AUTHORS } from '../../utils/constans';
 import "./FormMessage.scss";
 import TextField from '@mui/material/TextField'
 import { useParams } from 'react-router';
 
 
-export const FormMessage = ({ onSendMessage }) => {
+export const FormMessage = ({ chatsName, onSendMessage }) => {
 
     const { name: chatUrlName } = useParams()
 
     const isActivUrl = useMemo(() => {
-        if (chatUrlName) {
+        if (chatUrlName && chatsName.includes(chatUrlName)) {
             return true;
         } else {
             return false;
         }
     }, [chatUrlName])
 
-
     const [valueTextarea, setValueTextarea] = useState("")
 
     const textareaElement = useRef()
+
+    useEffect(() => {
+        if (chatUrlName && chatsName.includes(chatUrlName)) {
+            textareaElement.current.focus()
+        }
+    })
 
     const getValue = (event) => {
         setValueTextarea(event.target.value)
