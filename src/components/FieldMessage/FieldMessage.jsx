@@ -9,13 +9,19 @@ export const FieldMessage = ({ messageList }) => {
 
         <div className="message-field">
 
-            {messageList.map((message) =>
-                <div key={message.id}
-                    className={message.autor === "Bot" ? 'message-field__item message-field__item_position-left' : 'message-field__item message-field__item_position-right'}>
-                    <p className="message-field__text-autor">{message.autor}</p>
-                    <p className="message-field__text">{message.text}</p>
-                </div>
-            )}
+            {messageList?.length ?
+
+                messageList?.map((message) => {
+                    return <div key={message.id}
+                        className={message.autor === "Bot" ? 'message-field__item message-field__item_position-left' : 'message-field__item message-field__item_position-right'}>
+                        <p className="message-field__text-autor">{message.autor}</p>
+                        <p className="message-field__text">{message.message}</p>
+                    </div>
+                })
+
+                :
+                <div className="message-field__no-messages">Чат пуст. Выберите чат и напишите сообщение!</div>
+            }
 
         </div>
     )
