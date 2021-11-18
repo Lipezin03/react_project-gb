@@ -1,79 +1,27 @@
 import React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Message } from "../../components/Message/Message.jsx"
 import { ChatList } from "../../components/ChatList/ChatList.jsx"
 import { AddChatForm } from '../../components/AddChatForm/AddChatForm.jsx';
 import { AUTHORS } from '../../utils/constans';
+import { addNewMessage } from '../../store/ChatsReducer/action.js';
+import { getSelectorchatsMessage, getSelectorChatList } from '../../store/ChatsReducer/selectors.js';
 import "./Chats.scss"
-
-const initialChats = {
-    sport: [
-        {
-            id: 1,
-            autor: AUTHORS.User,
-            message: "Привет, чат про спорт!",
-        },
-    ],
-
-    games: [
-        {
-            id: 1,
-            autor: AUTHORS.User,
-            message: "Новинки игр!",
-        },
-    ],
-
-    traval: [],
-}
 
 
 
 export const Chats = () => {
 
     const { name: chatUrlName } = useParams()
-
     const navigate = useNavigate()
 
-    const [messageList, setMessageList] = useState(initialChats);
+    const messageList = useSelector(getSelectorchatsMessage)
 
-    const [chatListEl, setChatListEl] = useState(Object.keys(messageList))
+    const chatsName = useSelector(getSelectorChatList)
 
-    if (chatUrlName) {
-        if (!chatListEl.includes(chatUrlName)) {
-            navigate("/chats")
-        }
-    }
-
-    const delChats = useCallback((chat) => {
-        const newObjectChats = messageList;
-        delete newObjectChats[chat]
-
-        setMessageList(newObjectChats)
-        setChatListEl(prevChatsName => prevChatsName.filter(el => el !== chat))
-
-        if (chatUrlName === chat) {
-            navigate("/chats")
-        }
-        else if (chatListEl.length === 0) {
-            navigate("/chats")
-        }
-
-    }, [messageList])
-
-
-    const addChats = useCallback((newChat) => {
-        setMessageList(prevChat => ({ ...prevChat, ...newChat }))
-        setChatListEl(prevNameChat => [...prevNameChat, ...Object.keys(newChat)])
-    }, [])
-
-
-    const handleSendMessage = useCallback((newMessage) => {
-        setMessageList(prevMessage => ({
-            ...prevMessage, [chatUrlName]: [...prevMessage[chatUrlName], newMessage]
-        }))
-    }, [chatUrlName]);
-
+    const dispatch = useDispatch()
 
     useEffect(() => {
 
@@ -81,17 +29,24 @@ export const Chats = () => {
             messageList[chatUrlName]?.[messageList[chatUrlName].length - 1.].autor !== AUTHORS.Bot) {
 
             setTimeout(() => {
-
-                handleSendMessage({
+                const newMessage = {
                     autor: AUTHORS.Bot,
                     message: "Сообщение принято, мы с вами свяжимся!",
                     id: Date.now()
-                })
+                }
+                dispatch(addNewMessage(chatUrlName, newMessage))
+
             }, 1500)
-
         }
-    }, [messageList, handleSendMessage]);
+    }, [messageList]);
 
+    useEffect(() => {
+        if (chatUrlName) {
+            if (!chatsName.includes(chatUrlName)) {
+                navigate("/chats")
+            }
+        }
+    })
 
 
     return (
@@ -100,15 +55,11 @@ export const Chats = () => {
             <div className="chats__content container">
 
                 <div className="chats__block-add-chats">
-                    <AddChatForm chatsName={chatListEl} onAddChats={addChats} />
-                    <ChatList ondelChats={delChats} chatsName={chatListEl} />
+                    <AddChatForm />
+                    <ChatList />
                 </div>
 
-                <Message
-                    chatsName={chatListEl}
-                    messageList={messageList[chatUrlName]}
-                    onSendMessage={handleSendMessage} />
-
+                <Message />
             </div>
 
         </div>

@@ -1,12 +1,25 @@
 import React from 'react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addChatList, addNewChat } from '../../store/ChatsReducer/action';
+import { getSelectorChatList } from '../../store/ChatsReducer/selectors';
 import "../AddChatForm/AddChatForm.scss"
 
 
-export const AddChatForm = ({ chatsName, onAddChats }) => {
+export const AddChatForm = () => {
+
+    const chatsName = useSelector(getSelectorChatList)
+
+    const dispatch = useDispatch()
+
     const [isValid, setIsValid] = useState(false)
 
     const [valueInput, setValueInput] = useState("")
+
+    const getValueInput = (event) => {
+        setValueInput(event.target.value)
+
+    }
 
     const addChat = (event) => {
         event.preventDefault()
@@ -16,21 +29,16 @@ export const AddChatForm = ({ chatsName, onAddChats }) => {
             return
         }
 
-
         const newChat = {
             [valueInput]: []
         }
 
-        onAddChats(newChat)
+        dispatch(addNewChat(newChat))
+        dispatch(addChatList(Object.keys(newChat)))
 
         setValueInput("")
 
         setIsValid(false)
-
-    }
-
-    const getValueInput = (event) => {
-        setValueInput(event.target.value)
 
     }
 
@@ -45,7 +53,8 @@ export const AddChatForm = ({ chatsName, onAddChats }) => {
                     className="form-add-chat__input"
                     type="text" />
                 {isValid ?
-                    <div className="isvalid">Такое имя чата уже есть. Попробуй другое!</div> : ""}
+                    <div className="isvalid">Такое имя чата уже есть. Попробуй другое!</div>
+                    : ""}
                 <button type="submit" className="form-add-chat__btn">Добавить новый чат</button>
             </form>
 

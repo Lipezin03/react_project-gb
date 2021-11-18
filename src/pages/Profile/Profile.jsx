@@ -1,12 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleCheckbox } from '../../store/profile/action';
+import { toggleCheckbox } from '../../store/profileReducer/action';
+import { getSelectorName, getSelectorCheckbox } from '../../store/profileReducer/selectors';
+
 import "./Profile.scss"
 
 
 export const Profile = () => {
 
-    const { checkbox, name } = useSelector(state => state)
+    const name = useSelector(getSelectorName)
+    const checkbox = useSelector(getSelectorCheckbox)
+
     const dispatch = useDispatch();
 
     const handleChangeCheckbox = () => {
