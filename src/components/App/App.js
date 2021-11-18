@@ -3,17 +3,24 @@ import './App.scss';
 import { Header } from "../Header/Header";
 import { AppRouter } from '../AppRouter/AppRouter';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from "../../store/"
 
 
 function App() {
 
   return (
-    <div className="app">
-      <BrowserRouter>
-        <Header />
-        <AppRouter />
-      </BrowserRouter>
-    </div>
+    < Provider store={store}>
+
+      <div className="app">
+        <BrowserRouter>
+          <Header />
+          <AppRouter />
+        </BrowserRouter>
+      </div>
+
+    </Provider>
+
   );
 }
 
