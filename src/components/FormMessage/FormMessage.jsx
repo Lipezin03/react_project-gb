@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AUTHORS } from '../../utils/constans';
 import { getSelectorChatList } from '../../store/ChatsReducer/selectors';
 import TextField from '@mui/material/TextField'
-import { addNewMessage } from '../../store/ChatsReducer/action';
+import { addNewMessage, addMessageWithThunk } from '../../store/ChatsReducer/action';
 import { useParams } from 'react-router';
 import "./FormMessage.scss";
 
@@ -47,7 +47,7 @@ export const FormMessage = () => {
             message: valueTextarea,
             id: Date.now()
         }
-        dispatch(addNewMessage(chatUrlName, newMessage))
+        dispatch(addMessageWithThunk(chatUrlName, newMessage))
 
         setValueTextarea("");
     }

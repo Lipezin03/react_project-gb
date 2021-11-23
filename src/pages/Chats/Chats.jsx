@@ -24,23 +24,6 @@ export const Chats = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-
-        if (messageList[chatUrlName]?.length > 0 &&
-            messageList[chatUrlName]?.[messageList[chatUrlName].length - 1.].autor !== AUTHORS.Bot) {
-
-            setTimeout(() => {
-                const newMessage = {
-                    autor: AUTHORS.Bot,
-                    message: "Сообщение принято, мы с вами свяжимся!",
-                    id: Date.now()
-                }
-                dispatch(addNewMessage(chatUrlName, newMessage))
-
-            }, 1500)
-        }
-    }, [messageList]);
-
-    useEffect(() => {
         if (chatUrlName) {
             if (!chatsName.includes(chatUrlName)) {
                 navigate("/chats")
