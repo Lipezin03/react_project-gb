@@ -1,0 +1,22 @@
+.chat-item {
+
+
+    &__text {
+        color: wheat;
+        color:teal;
+        font-size: 25px;
+        flex-grow: 1;
+    }
+
+    &__btn-del {
+        background-color: inherit;
+        cursor: pointer;
+        padding: 5px;
+    }
+}
+
+.icon-del {
+    background-color: rgb(46, 53, 53);
+    color: darkcyan;
+    padding: 0px;
+}

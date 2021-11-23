@@ -1,17 +1,23 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { getSelectorchatsMessage } from '../../store/ChatsReducer/selectors';
 import "./FieldMessage.scss"
 
 
-export const FieldMessage = ({ messageList }) => {
+export const FieldMessage = () => {
 
+    const messageList = useSelector(getSelectorchatsMessage)
+
+    const { name: chatUrlName } = useParams()
 
     return (
 
         <div className="message-field">
 
-            {messageList?.length ?
+            {messageList[chatUrlName]?.length ?
 
-                messageList?.map((message) => {
+                messageList[chatUrlName]?.map((message) => {
                     return <div key={message.id}
                         className={message.autor === "Bot" ? 'message-field__item message-field__item_position-left' : 'message-field__item message-field__item_position-right'}>
                         <p className="message-field__text-autor">{message.autor}</p>

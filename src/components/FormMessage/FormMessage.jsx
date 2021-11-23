@@ -1,12 +1,19 @@
 import React from 'react';
 import { useEffect, useRef, useState, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { AUTHORS } from '../../utils/constans';
-import "./FormMessage.scss";
+import { getSelectorChatList } from '../../store/ChatsReducer/selectors';
 import TextField from '@mui/material/TextField'
+import { addNewMessage } from '../../store/ChatsReducer/action';
 import { useParams } from 'react-router';
+import "./FormMessage.scss";
 
 
-export const FormMessage = ({ chatsName, onSendMessage }) => {
+export const FormMessage = () => {
+
+    const dispatch = useDispatch()
+
+    const chatsName = useSelector(getSelectorChatList)
 
     const { name: chatUrlName } = useParams()
 
@@ -35,11 +42,12 @@ export const FormMessage = ({ chatsName, onSendMessage }) => {
     const addMessage = (event) => {
         event.preventDefault()
 
-        onSendMessage({
+        const newMessage = {
             autor: AUTHORS.User,
             message: valueTextarea,
             id: Date.now()
-        })
+        }
+        dispatch(addNewMessage(chatUrlName, newMessage))
 
         setValueTextarea("");
     }
