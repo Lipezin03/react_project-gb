@@ -1,3 +1,5 @@
+import { AUTHORS } from "../../utils/constans"
+
 export const ADD_CHAT_LIST = "CHATS::ADD_CHAT_LIST"
 export const addChatList = (newName) => ({
     type: ADD_CHAT_LIST,
@@ -37,3 +39,20 @@ export const addNewMessage = (chatName, newMessage) => ({
         newMessage: newMessage
     }
 })
+
+
+export const addMessageWithThunk = (chatUrlName, newMessage) => (dispatch) => {
+    dispatch(addNewMessage(chatUrlName, newMessage));
+
+    if (newMessage.autor !== AUTHORS.Bot) {
+        setTimeout(() => {
+            const botMessage = {
+                autor: AUTHORS.Bot,
+                message: "Сообщение принято, мы с вами свяжимся!",
+                id: Date.now()
+            }
+            dispatch(addNewMessage(chatUrlName, botMessage))
+
+        }, 1500)
+    }
+}
