@@ -1,5 +1,5 @@
 import { AUTHORS } from "../../utils/constans"
-import { ADD_CHAT_LIST, DELETE_CHAT_LIST, ADD_NEW_CHAT, DELETE_CHAT, ADD_NEW_MESSAGE } from "./action"
+import { ADD_CHAT_LIST, DELETE_CHAT_LIST, ADD_NEW_CHAT, DELETE_CHAT, ADD_NEW_MESSAGE, DELETE_MESSAGE, HIDEN_BUTTON_DEL, VISIBLE_BUTTON_DEL } from "./action"
 
 
 const initialChats = {
@@ -23,7 +23,9 @@ const initialChats = {
         traval: [],
     },
 
-    chatList: ["sport", "games", "traval"]
+    chatList: ["sport", "games", "traval"],
+
+    showButtonDelMessage: null,
 }
 
 
@@ -34,11 +36,13 @@ export const chatReducer = (state = initialChats, { type, payload }) => {
                 ...state,
                 chatsMessage: ({ ...state.chatsMessage, ...payload })
             }
+
         case ADD_CHAT_LIST:
             return {
                 ...state,
                 chatList: [...state.chatList, ...payload]
             }
+
         case DELETE_CHAT:
             const newObjectChats = state.chatsMessage;
             delete newObjectChats[payload]
@@ -46,15 +50,35 @@ export const chatReducer = (state = initialChats, { type, payload }) => {
                 ...state,
                 chatsMessage: newObjectChats
             }
+
         case DELETE_CHAT_LIST:
             return {
                 ...state,
                 chatList: state.chatList.filter(el => el !== payload)
             }
+
         case ADD_NEW_MESSAGE:
             return {
                 ...state,
                 chatsMessage: ({ ...state.chatsMessage, [payload.chatName]: [...state.chatsMessage[payload.chatName], payload.newMessage] })
+            }
+
+        case DELETE_MESSAGE:
+            return {
+                ...state,
+                chatsMessage: ({ ...state.chatsMessage, [payload.chatName]: [...state.chatsMessage[payload.chatName].filter(el => el.id !== payload.idMessage)] })
+            }
+
+        case HIDEN_BUTTON_DEL:
+            return {
+                ...state,
+                showButtonDelMessage: null,
+
+            }
+        case VISIBLE_BUTTON_DEL:
+            return {
+                ...state,
+                showButtonDelMessage: payload,
             }
 
         default:

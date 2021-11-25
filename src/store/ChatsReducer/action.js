@@ -35,10 +35,32 @@ export const ADD_NEW_MESSAGE = "CHATS::ADD_NEW_MESSAGE"
 export const addNewMessage = (chatName, newMessage) => ({
     type: ADD_NEW_MESSAGE,
     payload: {
-        chatName: chatName,
-        newMessage: newMessage
+        chatName,
+        newMessage
     }
 })
+
+export const DELETE_MESSAGE = "CHATS::DELETE_MESSAGE";
+export const deleteMessage = (chatName, idMessage) => ({
+    type: DELETE_MESSAGE,
+    payload: {
+        chatName,
+        idMessage,
+    }
+})
+
+
+export const HIDEN_BUTTON_DEL = "CHATS::HIDEN_BUTTON_DEL";
+export const hidenButtonDel = () => ({
+    type: HIDEN_BUTTON_DEL,
+})
+
+export const VISIBLE_BUTTON_DEL = "CHATS::VISIBLE_BUTTON_DEL";
+export const visibleButtonDel = (idBtn) => ({
+    type: VISIBLE_BUTTON_DEL,
+    payload: idBtn,
+})
+
 
 
 export const addMessageWithThunk = (chatUrlName, newMessage) => (dispatch) => {
@@ -56,3 +78,5 @@ export const addMessageWithThunk = (chatUrlName, newMessage) => (dispatch) => {
         }, 1500)
     }
 }
+
+

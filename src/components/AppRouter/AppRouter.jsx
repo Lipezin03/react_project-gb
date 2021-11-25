@@ -4,6 +4,7 @@ import { Chats } from "../../pages/Chats/Chats.jsx"
 import { Profile } from "../../pages/Profile/Profile.jsx"
 import { Home } from "../../pages/Home/Home.jsx";
 import { Error404 } from "../../pages/Error404/Error404.jsx";
+import { SpaceNews } from "../../pages/SpaceNews/SpaceNews.jsx";
 
 export const AppRouter = () => {
 
@@ -16,6 +17,7 @@ export const AppRouter = () => {
                     <Route path=":name" element={<Chats />} />
                 </Route>
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/space-news" element={<SpaceNews />} />
                 <Route path="*" element={<Error404 />} />
             </Routes>
 
