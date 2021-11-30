@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Message } from "../../components/Message/Message.jsx"
@@ -25,6 +25,12 @@ export const Chats = () => {
         }
     })
 
+    // const addMessage = useCallback(
+    //     (newMessage) => {
+    //         push(getChatMsgsListRefById(chatUrlName), newMessage);
+    //     },
+    //     [chatUrlName]
+    // );
 
     return (
 
@@ -38,10 +44,7 @@ export const Chats = () => {
 
                 <Message />
             </div>
-
         </div>
-
-
     );
 }
 
