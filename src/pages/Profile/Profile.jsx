@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCheckbox } from '../../store/profileReducer/action';
 import { getSelectorName, getSelectorCheckbox } from '../../store/profileReducer/selectors';
-
 import "./Profile.scss"
 
 

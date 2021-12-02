@@ -1,20 +1,23 @@
 import "./Header.scss"
 import React from 'react';
-import { Link } from 'react-router-dom';;
+import { NavLink } from 'react-router-dom';;
 
 
 export const Header = () => {
+
+    const setActiv = ({ isActive }) => ({ color: isActive ? "teal" : "tomato" })
 
     return (
         <div className="header">
             <div className="header__content container">
                 <div className="header__title">
-                    <Link to="/">My React Project</Link>
+                    <NavLink to="/">My React Project</NavLink>
                 </div>
                 <nav className="header__nav">
                     <ul className="header__list">
-                        <li className="header__list-item" ><Link to="/chats">Chats</Link></li>
-                        <li className="header__list-item"><Link to="/profile">Profile</Link></li>
+                        <li className="header__list-item" ><NavLink style={setActiv} to="/chats">Chats</NavLink></li>
+                        <li className="header__list-item"><NavLink style={setActiv} to="/profile">Profile</NavLink></li>
+                        <li className="header__list-item"><NavLink style={setActiv} to="/space-news">SpaceNews</NavLink></li>
                     </ul>
                 </nav>
 

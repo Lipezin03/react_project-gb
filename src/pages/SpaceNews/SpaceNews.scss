@@ -1,0 +1,83 @@
+.space-news {
+    background-color: inherit;
+    padding-bottom: 20px;
+
+    &__content {
+       
+    }
+
+    &__loader {
+        display: block;
+        margin: 0 auto;
+    }
+
+    &__btn-respons {
+        display: block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+
+    &__error {
+        color: red;
+    }
+
+    &__title {
+        text-align: center;
+        font-size: 36px;
+        color:chocolate;
+        margin: 50px 0 50px;
+    }
+    &__items-box { 
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        column-gap: 1.5rem;
+        row-gap: 2rem;
+    }
+    
+    &__item {
+        // height: 400px;
+    }
+
+    &__item-img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    &__img {
+        display: block;
+        width: 100%;
+        height: 200px;
+    }
+
+    &__item-title {
+        display: block;
+        color: chocolate;
+        text-decoration:underline;
+        margin: 0.62rem 0 1.2rem;
+        padding: 5px;
+    }
+
+    &__item-summary {
+        padding: 5px 5px 0 5px;
+
+        color: wheat;
+        -webkit-line-clamp: 5; 
+        display: -webkit-box; 
+        -webkit-box-orient: vertical; 
+        overflow: hidden; 
+    }
+}
+
+.MuiCircularProgress-colorPrimary {
+    color: green !important;
+}
+
+.MuiCircularProgress-root { 
+    left: calc(50% - 20px); 
+    position: absolute; 
+    top: 44vh;
+}
