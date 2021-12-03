@@ -1,11 +1,3 @@
-export const TOGGLE_CHECKBOX = "PROFILE::TOGGLE_CHECKBOX";
-
-export const toggleCheckbox = () => ({
-    type: TOGGLE_CHECKBOX,
-})
-
-
-
 export const SIGN_IN = "PROFILE::SIGN_IN";
 export const signIn = () => ({
     type: SIGN_IN,

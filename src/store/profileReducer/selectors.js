@@ -1,5 +1,3 @@
-export const getSelectorCheckbox = (state => state.profileReducer.checkbox)
-
 export const getSelectorName = (state => state.profileReducer.name)
 
 export const selectAuth = (state => state.profileReducer.authed)
