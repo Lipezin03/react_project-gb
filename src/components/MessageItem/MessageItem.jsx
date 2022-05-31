@@ -41,7 +41,8 @@ export const MessageItem = ({ message }) => {
                 onMouseLeave={getHidenButtonDel}
                 className={message.autor === "Bot" ? 'message-item__item message-item__item_position-left' : 'message-item__item message-item__item_position-right'}>
 
-                <p className="message-item__text-autor">{login ? login : message.autor}</p>
+                <p className="message-item__text-autor">{message.autor}</p>
+                {/* <p className="message-item__text-autor">{login ? login : message.autor}</p> */}
 
                 <p className="message-item__text">{message.message}</p>
                 <div data-id={message.id} className="message-item__btn-box">

@@ -81,13 +81,14 @@ export const setChats = (chats) => ({
 export const addMessageWithThunk = (chatUrlName, newMessage) => (dispatch) => {
     dispatch(addNewMessage(chatUrlName, newMessage));
 
-    if (newMessage.autor !== AUTHORS.Bot) {
+    if (newMessage.autor === AUTHORS.User) {
         setTimeout(() => {
             const botMessage = {
                 autor: AUTHORS.Bot,
                 message: "Сообщение принято, мы с вами свяжимся!",
                 id: Date.now()
             }
+
             dispatch(addNewMessage(chatUrlName, botMessage))
 
         }, 1500)

@@ -42,12 +42,13 @@ export const AddChatForm = () => {
             return
         }
 
-        // const newChat = {
-        //     [valueInput]: []
-        // }
+        const newChat = {
+            [valueInput]: [] // для store
+        }
+        dispatch(addNewChat(newChat))  // Просто способ добавдения в store Chat
+        dispatch(addChatList(Object.keys(newChat)))  //Просто способ добавдения в store ChatList
 
-        // dispatch(addNewChat(newChat))  // Просто способ добавдения в store Chat
-        // dispatch(addChatList(Object.keys(newChat)))  Просто способ добавдения в store ChatList
+        // Возможно в firebase истек срок действия базы данных и это не работает сейчас
         dispatch(addChatWithFb(valueInput))
         setValueInput("")
 

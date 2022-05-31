@@ -53,9 +53,11 @@ export const FormMessage = () => {
             message: valueTextarea,
             id: Date.now()
         }
-        // dispatch(addMessageWithThunk(chatUrlName, newMessage)) //! Автоматический ответ бота
+        dispatch(addMessageWithThunk(chatUrlName, newMessage)) //! Автоматический ответ бота
+        // dispatch(addNewMessage(chatUrlName, newMessage)) // Ghjcnj jnghfdbnm cjj,otybt
 
-        dispatch(addMessageWithFb(chatUrlName, newMessage))
+        // Возможно в firebase истек срок действия базы данных и это не работает сейчас
+        // dispatch(addMessageWithFb(chatUrlName, newMessage))
 
         setValueTextarea("");
     }

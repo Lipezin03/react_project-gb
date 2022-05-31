@@ -17,7 +17,9 @@ export const Profile = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // Возможно в firebase истек срок действия базы данных и это не работает сейчас
         const unsubscribe = onValue(userRef, (snapshot) => {
+            console.log(snapshot.val())
             const userData = snapshot.val()
             dispatch(changeName(userData?.name || ""))
         })
@@ -31,10 +33,10 @@ export const Profile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         set(userRef, {
             name: value,
         });
+        dispatch(changeName(value))
         setValue("");
     };
 
