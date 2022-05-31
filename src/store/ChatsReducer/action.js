@@ -1,3 +1,11 @@
+import { onValue, set, push } from "firebase/database";
+import {
+    chatsRef,
+    messagesRef,
+    getChatMsgsRefById,
+    getChatRefById,
+    getChatMsgsListRefById,
+} from "../../services/firebase";
 import { AUTHORS } from "../../utils/constans"
 
 export const ADD_CHAT_LIST = "CHATS::ADD_CHAT_LIST"
@@ -62,21 +70,69 @@ export const visibleButtonDel = (idBtn) => ({
 })
 
 
+export const SET_CHATS = "CHATS::SET_CHATS";
+export const setChats = (chats) => ({
+    type: SET_CHATS,
+    payload: chats,
+});
+
+
 
 export const addMessageWithThunk = (chatUrlName, newMessage) => (dispatch) => {
     dispatch(addNewMessage(chatUrlName, newMessage));
 
-    if (newMessage.autor !== AUTHORS.Bot) {
+    if (newMessage.autor === AUTHORS.User) {
         setTimeout(() => {
             const botMessage = {
                 autor: AUTHORS.Bot,
                 message: "Сообщение принято, мы с вами свяжимся!",
                 id: Date.now()
             }
+
             dispatch(addNewMessage(chatUrlName, botMessage))
 
         }, 1500)
     }
 }
+
+
+
+export const addChatWithFb = (newChat) => (dispatch) => {
+    set(getChatMsgsRefById(newChat), { empty: true });
+    set(getChatRefById(newChat), { name: newChat });
+};
+
+
+export const addMessageWithFb = (chatUrlName, newMessage) => (dispatch) => {
+
+    push(getChatMsgsListRefById(chatUrlName), newMessage);
+
+};
+
+
+export const initChatsTracking = () => (dispatch) => {
+    onValue(chatsRef, (chatsSnap) => {
+        const newChats = [];
+
+        chatsSnap.forEach((snapshot) => {
+            newChats.push(snapshot.val().name);
+        });
+
+        dispatch(setChats(newChats));
+    });
+};
+
+
+
+export const initChatsMessageTracking = () => (dispatch) => {
+    onValue(messagesRef, (snapshot) => {
+        const newMsg = {};
+        snapshot.forEach((chatMsgSnap) => {
+            newMsg[chatMsgSnap.key] = Object.values(chatMsgSnap.val().messageList || {})
+        })
+
+        dispatch(addNewChat(newMsg))
+    })
+};
 
 

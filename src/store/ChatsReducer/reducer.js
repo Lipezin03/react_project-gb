@@ -1,29 +1,30 @@
 import { AUTHORS } from "../../utils/constans"
-import { ADD_CHAT_LIST, DELETE_CHAT_LIST, ADD_NEW_CHAT, DELETE_CHAT, ADD_NEW_MESSAGE, DELETE_MESSAGE, HIDEN_BUTTON_DEL, VISIBLE_BUTTON_DEL } from "./action"
+import { ADD_CHAT_LIST, DELETE_CHAT_LIST, ADD_NEW_CHAT, DELETE_CHAT, ADD_NEW_MESSAGE, DELETE_MESSAGE, HIDEN_BUTTON_DEL, VISIBLE_BUTTON_DEL, SET_CHATS } from "./action"
 
 
 const initialChats = {
     chatsMessage: {
-        sport: [
-            {
-                id: 1,
-                autor: AUTHORS.User,
-                message: "Привет, чат про спорт!",
-            },
-        ],
+        // sport: [
+        //     {
+        //         id: 1,
+        //         autor: AUTHORS.User,
+        //         message: "Привет, чат про спорт!",
+        //     },
+        // ],
 
-        games: [
-            {
-                id: 1,
-                autor: AUTHORS.User,
-                message: "Новинки игр!",
-            },
-        ],
+        // games: [
+        //     {
+        //         id: 1,
+        //         autor: AUTHORS.User,
+        //         message: "Новинки игр!",
+        //     },
+        // ],
 
-        traval: [],
+        // traval: [],
     },
 
-    chatList: ["sport", "games", "traval"],
+    // chatList: ["sport", "games", "traval"],
+    chatList: [],
 
     showButtonDelMessage: null,
 }
@@ -79,6 +80,11 @@ export const chatReducer = (state = initialChats, { type, payload }) => {
             return {
                 ...state,
                 showButtonDelMessage: payload,
+            }
+        case SET_CHATS:
+            return {
+                ...state,
+                chatList: payload
             }
 
         default:

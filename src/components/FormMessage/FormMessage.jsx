@@ -4,8 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AUTHORS } from '../../utils/constans';
 import { getSelectorChatList } from '../../store/ChatsReducer/selectors';
 import TextField from '@mui/material/TextField'
-import { addNewMessage, addMessageWithThunk } from '../../store/ChatsReducer/action';
+import {
+    addNewMessage,
+    addMessageWithThunk,
+    addMessageWithFb
+} from '../../store/ChatsReducer/action';
 import { useParams } from 'react-router';
+
+
 import "./FormMessage.scss";
 
 
@@ -39,7 +45,7 @@ export const FormMessage = () => {
         setValueTextarea(event.target.value)
     }
 
-    const addMessage = (event) => {
+    const addMessages = (event) => {
         event.preventDefault()
 
         const newMessage = {
@@ -47,7 +53,11 @@ export const FormMessage = () => {
             message: valueTextarea,
             id: Date.now()
         }
-        dispatch(addMessageWithThunk(chatUrlName, newMessage))
+        dispatch(addMessageWithThunk(chatUrlName, newMessage)) //! Автоматический ответ бота
+        // dispatch(addNewMessage(chatUrlName, newMessage)) // Ghjcnj jnghfdbnm cjj,otybt
+
+        // Возможно в firebase истек срок действия базы данных и это не работает сейчас
+        // dispatch(addMessageWithFb(chatUrlName, newMessage))
 
         setValueTextarea("");
     }
@@ -56,7 +66,7 @@ export const FormMessage = () => {
     return (
 
         <div className="block-form">
-            <form onSubmit={addMessage} className="form-message">
+            <form onSubmit={addMessages} className="form-message">
                 {isActivUrl
                     ?
                     <TextField

@@ -1,11 +1,11 @@
-.home-page {
+.signup-page {
 
-
-    &__title{
+    &__title {
         color: brown;
         text-align: center;
         margin-top: 50px;
         margin-bottom: 50px;
+        font-size: 2rem;
     }
 
     &__block-sign {
@@ -14,7 +14,7 @@
 
     }
 
-    &__link-signup {
+    &__link-signin {
         align-self: flex-start;
         text-align: center;
         padding: 10px;

@@ -11,7 +11,7 @@ import { spaceNewsReducer } from "./SpaceNewsReducer/reducer";
 const persistConfig = {
     key: "Chats-React",
     storage,
-    blacklist: ["profileReducer", "spaceNewsReducer"],
+    blacklist: ["profileReducer", "chatReducer", "spaceNewsReducer"],
 }
 
 const rootReducer = combineReducers({

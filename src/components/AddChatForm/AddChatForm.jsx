@@ -1,8 +1,15 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addChatList, addNewChat } from '../../store/ChatsReducer/action';
+import {
+    addChatList,
+    addNewChat,
+    initChatsTracking,
+    addChatWithFb,
+    initChatsMessageTracking
+} from '../../store/ChatsReducer/action';
 import { getSelectorChatList } from '../../store/ChatsReducer/selectors';
+
 import "../AddChatForm/AddChatForm.scss"
 
 
@@ -21,6 +28,12 @@ export const AddChatForm = () => {
 
     }
 
+    useEffect(() => {
+        dispatch(initChatsTracking())
+        dispatch(initChatsMessageTracking())
+    }, [])
+
+
     const addChat = (event) => {
         event.preventDefault()
 
@@ -30,12 +43,13 @@ export const AddChatForm = () => {
         }
 
         const newChat = {
-            [valueInput]: []
+            [valueInput]: [] // для store
         }
+        dispatch(addNewChat(newChat))  // Просто способ добавдения в store Chat
+        dispatch(addChatList(Object.keys(newChat)))  //Просто способ добавдения в store ChatList
 
-        dispatch(addNewChat(newChat))
-        dispatch(addChatList(Object.keys(newChat)))
-
+        // Возможно в firebase истек срок действия базы данных и это не работает сейчас
+        dispatch(addChatWithFb(valueInput))
         setValueInput("")
 
         setIsValid(false)

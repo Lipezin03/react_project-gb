@@ -13,19 +13,22 @@ export const FieldMessage = () => {
     const { name: chatUrlName } = useParams()
 
     return (
+        <>
+            <h3 className="message-name-chat">Чат: <span>{chatUrlName}</span></h3>
+            <div className="message-field">
 
-        <div className="message-field">
+                {messageList[chatUrlName]?.length ?
 
-            {messageList[chatUrlName]?.length ?
+                    messageList[chatUrlName]?.map((message) => {
+                        return <MessageItem key={message.id} message={message} />
+                    })
 
-                messageList[chatUrlName]?.map((message) => {
-                    return <MessageItem key={message.id} message={message} />
-                })
+                    :
+                    <div className="message-field__no-messages">Чат пуст. Выберите чат и напишите сообщение!</div>
+                }
 
-                :
-                <div className="message-field__no-messages">Чат пуст. Выберите чат и напишите сообщение!</div>
-            }
+            </div >
 
-        </div >
+        </>
     )
 }
